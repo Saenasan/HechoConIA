@@ -1,62 +1,195 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Disfraz para gatos</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HechoConIA · Tus trabajos listos, hechos con inteligencia artificial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF2FF; --surface:#FFFFFF; --ink:#14213D; --muted:#4A5675; --brand:#3347FF; --brand-ink:#FFFFFF; --pop:#FFD23F; --line:#CFD6F0;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0E1428; --surface:#18203C; --ink:#EEF2FF; --muted:#A9B4D6; --brand:#7C8CFF; --brand-ink:#0E1428; --pop:#FFD23F; --line:#2B3560;}
+}
+:root[data-theme="dark"]{--bg:#0E1428; --surface:#18203C; --ink:#EEF2FF; --muted:#A9B4D6; --brand:#7C8CFF; --brand-ink:#0E1428; --pop:#FFD23F; --line:#2B3560;}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",system-ui,sans-serif;line-height:1.08;margin:0;letter-spacing:-.02em}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+:focus-visible{outline:3px solid var(--pop);outline-offset:3px;border-radius:6px}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 20px;
-            line-height: 1.6;
-            background: #f5f5f5;
-        }
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:22px;text-decoration:none}
+.logo span{background:var(--pop);color:#14213D;padding:0 6px;border-radius:6px;margin-left:2px}
+nav a{margin-left:22px;text-decoration:none;color:var(--muted);font-weight:500}
+nav a:hover{color:var(--ink)}
+@media(max-width:620px){nav a:not(.btn){display:none}}
 
-        h1 {
-            text-align: center;
-        }
+.btn{display:inline-block;background:var(--brand);color:var(--brand-ink);padding:14px 26px;border-radius:999px;font-weight:700;text-decoration:none;border:0;cursor:pointer;font-size:17px}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+nav .btn{padding:10px 20px;color:var(--brand-ink);margin-left:22px;font-size:15px}
 
-        img {
-            width: 100%;
-            border-radius: 15px;
-        }
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:56px 0 84px}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding:30px 0 56px;gap:36px}}
+.hero h1{font-size:clamp(40px,6.4vw,72px);font-weight:800}
+.hero p.lead{font-size:20px;color:var(--muted);max-width:30em;margin:22px 0 30px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
 
-        .contenido {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-        }
-    </style>
+.chat{background:var(--surface);border:2px solid var(--ink);border-radius:22px;padding:22px;box-shadow:8px 8px 0 var(--pop);min-height:330px}
+.bubble{padding:12px 16px;border-radius:16px;margin-bottom:14px;max-width:92%;font-size:16px}
+.you{background:var(--bg);border-bottom-right-radius:4px;margin-left:auto}
+.me{background:var(--brand);color:var(--brand-ink);border-bottom-left-radius:4px}
+.who{font-size:13px;color:var(--muted);margin:0 0 4px}
+.me .who{color:inherit;opacity:.8}
+.me ul{margin:6px 0 0;padding-left:18px}
+.caret::after{content:"";display:inline-block;width:2px;height:1em;background:currentColor;margin-left:2px;vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+#reply{opacity:0;transition:opacity .5s}
+#reply.show{opacity:1}
+
+section{padding:64px 0}
+section h2{font-size:clamp(30px,4.4vw,46px);font-weight:700;max-width:16em}
+.sub{color:var(--muted);max-width:34em;margin:14px 0 0}
+
+.services{margin-top:34px;border-top:2px solid var(--ink)}
+.row{display:grid;grid-template-columns:230px 1fr auto;gap:20px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line)}
+.row h3{font-size:24px}
+.row p{margin:0;color:var(--muted)}
+.row .time{font-weight:700;white-space:nowrap}
+@media(max-width:700px){.row{grid-template-columns:1fr;gap:4px}}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px;counter-reset:s}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+.step{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:24px;counter-increment:s}
+.step::before{content:counter(s);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--pop);color:#14213D;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;margin-bottom:14px}
+.step h3{font-size:22px;margin-bottom:6px}
+.step p{margin:0;color:var(--muted)}
+
+.promise{background:var(--ink);color:var(--bg);border-radius:26px;padding:44px;margin:20px 0}
+.promise h2{max-width:none}
+.promise ul{margin:22px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 32px}
+@media(max-width:700px){.promise{padding:28px}.promise ul{grid-template-columns:1fr}}
+.promise li{padding-left:28px;position:relative}
+.promise li::before{content:"✓";position:absolute;left:0;color:var(--pop);font-weight:700}
+
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font-weight:700;font-size:18px}
+details p{color:var(--muted);margin:10px 0 0;max-width:42em}
+
+.final{text-align:left;padding:72px 0 40px}
+.final h2{max-width:14em}
+footer{padding:30px 0 50px;color:var(--muted);font-size:15px;border-top:1px solid var(--line)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}#reply{opacity:1}}
+</style>
 </head>
-
 <body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#" aria-label="HechoConIA">Hecho<span>ConIA</span></a>
+    <nav>
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Cómo trabajo</a>
+      <a href="#preguntas">Preguntas</a>
+      <a class="btn" href="https://wa.me/593000000000?text=Hola%2C%20quiero%20pedir%20un%20trabajo">Escríbeme</a>
+    </nav>
+  </header>
 
-    <div class="contenido">
-
-        <h1>🐱 El disfraz más elegante del barrio</h1>
-
-        <img src="https://placecats.com/500/350" alt="Un gato">
-
-        <h2>¿Qué necesitas?</h2>
-
-        <ul>
-            <li>Una tela suave</li>
-            <li>Tijeras</li>
-            <li>Cinta métrica</li>
-        </ul>
-
-        <h2>Pasos</h2>
-
-        <ol>
-            <li>Mide suavemente el cuerpo de tu gato.</li>
-            <li>Corta la tela dejando espacio suficiente.</li>
-            <li>Comprueba que el disfraz no quede apretado.</li>
-            <li>¡Listo! Tu gato tiene su disfraz.</li>
-        </ol>
-
+  <main>
+    <div class="hero">
+      <div>
+        <h1>Tú me dices qué necesitas. Yo te lo entrego hecho.</h1>
+        <p class="lead">Textos, presentaciones, traducciones, imágenes y más, creados con inteligencia artificial y revisados por una persona. Rápido, claro y a buen precio.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://wa.me/593000000000?text=Hola%2C%20quiero%20pedir%20un%20trabajo">Pedir mi trabajo</a>
+          <a class="btn ghost" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+      <div class="chat" aria-label="Ejemplo de un pedido">
+        <p class="who">Tú</p>
+        <div class="bubble you"><span id="typed" class="caret"></span></div>
+        <div id="reply">
+          <p class="who">HechoConIA</p>
+          <div class="bubble me">Listo. Te entrego:
+            <ul><li>Descripción del producto</li><li>3 publicaciones para Instagram</li><li>Un mensaje de bienvenida para WhatsApp</li></ul>
+            <p style="margin:8px 0 0">Entrega: hoy mismo.</p>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <section id="servicios">
+      <h2>Lo que puedo hacer por ti</h2>
+      <p class="sub">Si no ves lo que necesitas, escríbeme. Casi siempre hay una forma de resolverlo.</p>
+      <div class="services">
+        <div class="row"><h3>Textos y redacción</h3><p>Publicaciones, descripciones de productos, cartas, correos, guiones y biografías.</p><span class="time">Desde 1 hora</span></div>
+        <div class="row"><h3>Presentaciones</h3><p>Diapositivas claras y ordenadas para clases, reuniones o tu negocio.</p><span class="time">Desde 3 horas</span></div>
+        <div class="row"><h3>Traducciones</h3><p>Español, inglés y otros idiomas, con un tono natural y revisado.</p><span class="time">Desde 1 hora</span></div>
+        <div class="row"><h3>Imágenes y diseño</h3><p>Logos, flyers, imágenes para redes y material visual para tu marca.</p><span class="time">Desde 2 horas</span></div>
+        <div class="row"><h3>Resúmenes y análisis</h3><p>Convierto documentos largos en ideas claras y fáciles de usar.</p><span class="time">Desde 1 hora</span></div>
+        <div class="row"><h3>Asistentes y automatización</h3><p>Respuestas automáticas y flujos de trabajo que te ahorran tiempo cada semana.</p><span class="time">A consultar</span></div>
+      </div>
+    </section>
+
+    <section id="proceso">
+      <h2>Así de simple</h2>
+      <div class="steps">
+        <div class="step"><h3>Me cuentas</h3><p>Escríbeme por WhatsApp con lo que necesitas y para cuándo.</p></div>
+        <div class="step"><h3>Lo preparo</h3><p>Uso IA para avanzar rápido y reviso cada detalle a mano.</p></div>
+        <div class="step"><h3>Lo recibes</h3><p>Te lo envío listo y hago los ajustes que pidas.</p></div>
+      </div>
+    </section>
+
+    <div class="promise">
+      <h2>Mi compromiso contigo</h2>
+      <ul>
+        <li>Cada trabajo se revisa antes de entregarse.</li>
+        <li>Tus datos y los de tu negocio se mantienen privados.</li>
+        <li>Te digo el precio antes de empezar.</li>
+        <li>Incluye ajustes hasta que quedes conforme.</li>
+      </ul>
+    </div>
+
+    <section id="preguntas">
+      <h2>Preguntas frecuentes</h2>
+      <div style="margin-top:28px;border-top:2px solid var(--ink)">
+        <details><summary>¿Cuánto cuesta?</summary><p>Depende del trabajo. Te envío un precio cerrado antes de empezar, sin sorpresas.</p></details>
+        <details><summary>¿Los trabajos son realmente hechos con IA?</summary><p>Sí, y lo digo con transparencia. La IA acelera el trabajo y yo me encargo de que el resultado sea correcto, útil y esté bien escrito.</p></details>
+        <details><summary>¿Cuánto tardan las entregas?</summary><p>Los trabajos pequeños suelen estar listos el mismo día. Los más grandes los acordamos contigo.</p></details>
+        <details><summary>¿Cómo pago?</summary><p>Lo acordamos por WhatsApp: transferencia u otro medio que te resulte cómodo.</p></details>
+        <details><summary>¿Hacen tareas o tesis para entregar como propias?</summary><p>No. Ayudo con trabajos profesionales y de negocio, y con explicaciones o resúmenes para estudiar.</p></details>
+      </div>
+    </section>
+
+    <section class="final">
+      <h2>¿Tienes algo pendiente? Dímelo y lo resolvemos.</h2>
+      <p class="sub">La primera consulta no tiene costo.</p>
+      <p style="margin-top:26px"><a class="btn" href="https://wa.me/593000000000?text=Hola%2C%20quiero%20pedir%20un%20trabajo">Escribir por WhatsApp</a></p>
+    </section>
+  </main>
+
+  <footer>© 2026 HechoConIA. Contacto: <a href="mailto:tucorreo@ejemplo.com">tucorreo@ejemplo.com</a></footer>
+</div>
+
+<script>
+(function(){
+  var text="Tengo una tienda de ropa y necesito una descripción y publicaciones para mis redes.";
+  var el=document.getElementById("typed"), reply=document.getElementById("reply");
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce){el.textContent=text;el.classList.remove("caret");reply.classList.add("show");return;}
+  var i=0;
+  (function tick(){
+    el.textContent=text.slice(0,++i);
+    if(i<text.length){setTimeout(tick,32);}
+    else{setTimeout(function(){el.classList.remove("caret");reply.classList.add("show");},500);}
+  })();
+})();
+</script>
 </body>
 </html>
